@@ -1,12 +1,29 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view/>
+  <div class="container">
+    <SidebarComponent />
+    <div id="content">
+      <router-view/>
+  </div>
+  </div>
 </template>
 
+<script lang="ts">
+import { Options, Vue } from 'vue-class-component';
+import SidebarComponent from './components/Sidebar.vue';
+
+@Options({
+  components:{
+    SidebarComponent
+  }
+})
+export default class App extends Vue {
+}
+</script>
 <style lang="scss">
+:root{
+  --black: #1f1f1f;
+  --white: #f1f1f1
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -14,17 +31,10 @@
   text-align: center;
   color: #2c3e50;
 }
-
-nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+.container{
+  width: 100%;
+  min-height: 100vh;
+  background-color: #f1f1f1;
+  display: flex;
 }
 </style>
