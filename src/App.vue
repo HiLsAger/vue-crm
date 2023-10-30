@@ -2,27 +2,33 @@
   <div class="container">
     <SidebarComponent />
     <div id="content">
-      <router-view/>
+      <router-view />
+    </div>
   </div>
-  </div>
+  <Toaster />
 </template>
 
 <script lang="ts">
-import { Options, Vue } from 'vue-class-component';
-import SidebarComponent from './components/Sidebar.vue';
+import { Options, Vue } from "vue-class-component";
+import SidebarComponent from "./components/Sidebar.vue";
+import Toaster from "./components/Toaster.vue";
 
 @Options({
-  components:{
-    SidebarComponent
-  }
+  components: {
+    SidebarComponent,
+    Toaster,
+  },
 })
-export default class App extends Vue {
-}
+export default class App extends Vue {}
 </script>
 <style lang="scss">
-:root{
+:root {
   --black: #1f1f1f;
-  --white: #f1f1f1
+  --white: #f1f1f1;
+  --full-black: #000000;
+}
+body {
+  margin: 0;
 }
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -31,10 +37,22 @@ export default class App extends Vue {
   text-align: center;
   color: #2c3e50;
 }
-.container{
+.container {
   width: 100%;
   min-height: 100vh;
   background-color: #f1f1f1;
   display: flex;
+  #content {
+    flex: 1;
+  }
+}
+.text-danger {
+  color: #dc3545;
+}
+.text-success {
+  color: #28a745;
+}
+.text-warning {
+  color: #ffc107;
 }
 </style>

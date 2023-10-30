@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import AboutView from "@/views/AboutView.vue";
+import SettingsView from "@/views/SettingsView.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -27,7 +28,7 @@ const routes: Array<RouteRecordRaw> = [
     meta: {
       bootstrapIconClass: "bi-gear-fill",
     },
-    component: AboutView,
+    component: SettingsView,
   },
 ];
 
