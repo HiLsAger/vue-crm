@@ -1,43 +1,33 @@
 <template>
   <div class="toaster">
-    <div class="toast" v-for="(toast, index) in toasts" :key="index">
-      <div class="toast-header">
-        <span>
-          <i v-if="toast.type" :class="['bi', getIconClass(toast.type)]"></i>
-          {{ toast.title }}
-        </span>
-        <button class="close-toast" @click="closeToast(index)">
-          <i class="bi bi-x"></i>
-        </button>
-      </div>
-      <div class="toast-content">{{ toast.message }}</div>
-    </div>
+    <ToastComponent
+      v-for="(toast, index) in toasts"
+      :key="index"
+      :index="index"
+      :toast="toast"
+    />
   </div>
 </template>
 
 <script lang="ts">
 import { toastsInterface } from "@/vuex/store";
-import { Vue } from "vue-class-component";
+import { Options, Vue } from "vue-class-component";
 import { useStore } from "vuex";
+import ToastComponent from "./Toast.vue";
 
+@Options({
+  components: {
+    ToastComponent,
+  },
+})
 export default class ToasterComponent extends Vue {
   store = useStore();
-
-  toasts = this.store.getters.toasts;
+  get toasts(): toastsInterface[] {
+    return this.store.getters.toasts;
+  }
 
   closeToast(index: number) {
     this.store.dispatch("closeToast", index);
-  }
-
-  getIconClass(type: string) {
-    switch (type) {
-      case "danger":
-        return "text-danger bi-exclamation-circle-fill";
-      case "warning":
-        return "text-warning bi-exclamation-triangle-fill";
-      case "success":
-        return "text-success bi-check";
-    }
   }
 }
 </script>
@@ -56,7 +46,20 @@ export default class ToasterComponent extends Vue {
     text-align: left;
     color: var(--white);
     margin-top: 0.5em;
+    position: relative;
 
+    .progress-bar {
+      position: absolute;
+      width: 100%;
+      top: 0;
+      left: 0;
+      z-index: 1;
+
+      .line {
+        height: 2px;
+        background-color: var(--white);
+      }
+    }
     .toast-header {
       background-color: var(--full-black);
       padding: 0.5em 1em;
