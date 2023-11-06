@@ -2,6 +2,8 @@ import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import AboutView from "@/views/AboutView.vue";
 import SettingsView from "@/views/SettingsView.vue";
+import LoginView from "@/views/auth/LoginView.vue";
+import RegisterView from "@/views/auth/RegisterView.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -29,6 +31,16 @@ const routes: Array<RouteRecordRaw> = [
       bootstrapIconClass: "bi-gear-fill",
     },
     component: SettingsView,
+  },
+  {
+    path: "/auth/login",
+    name: "login",
+    component: LoginView,
+  },
+  {
+    path: "/auth/register",
+    name: "register",
+    component: RegisterView,
   },
 ];
 

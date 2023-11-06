@@ -1,3 +1,4 @@
+import self_intefrace from "@/utility/interfaces/SelfInterface";
 import { createStore } from "vuex";
 
 export interface toastsInterface {
@@ -11,14 +12,8 @@ export interface toastsInterface {
 
 export default createStore({
   state: {
-    toasts: [
-      // {
-      //   type: "danger",
-      //   title: "Error",
-      //   message: "Hello world",
-      //   timer: 5000,
-      // },
-    ] as toastsInterface[],
+    toasts: [] as toastsInterface[],
+    self: null as self_intefrace | null,
   },
   mutations: {
     addToast(state, toast: toastsInterface) {
@@ -39,6 +34,9 @@ export default createStore({
     closeToast(state, index: number) {
       state.toasts[index].show = false;
     },
+    setSelf(state, self: self_intefrace) {
+      state.self = self;
+    },
   },
   actions: {
     addToast({ commit }, toast: toastsInterface) {
@@ -53,8 +51,12 @@ export default createStore({
     closeToast({ commit }, index: number) {
       commit("closeToast", index);
     },
+    setSelf({ commit }, self: self_intefrace) {
+      commit("setSelf", self);
+    },
   },
   getters: {
     toasts: (state) => state.toasts,
+    self: (state) => state.self,
   },
 });

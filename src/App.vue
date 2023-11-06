@@ -1,8 +1,13 @@
 <template>
   <div class="container">
-    <SidebarComponent />
-    <div id="content">
-      <router-view />
+    <div v-if="self">
+      <SidebarComponent />
+      <div id="content">
+        <router-view />
+      </div>
+    </div>
+    <div v-else>
+      <LoginView />
     </div>
   </div>
   <Toaster />
@@ -12,14 +17,25 @@
 import { Options, Vue } from "vue-class-component";
 import SidebarComponent from "./components/Sidebar.vue";
 import Toaster from "./components/Toaster.vue";
+import self_intefrace from './utility/interfaces/SelfInterface'
+import LoginView from './views/auth/LoginView.vue';
+import RegisterView from './views/auth/RegisterView.vue';
+import { useStore } from "vuex";
 
 @Options({
   components: {
     SidebarComponent,
     Toaster,
+    LoginView,
+    RegisterView
   },
 })
-export default class App extends Vue {}
+export default class App extends Vue {
+  store = useStore();
+  get self():self_intefrace|null{
+    return this.store.getters.self;
+  }
+}
 </script>
 <style lang="scss">
 :root {
