@@ -55,7 +55,6 @@ export default class ToastComponent extends Vue {
     this.toast = this.store.getters.toasts[this.index];
     if (this.toast) {
       const interval = setInterval(() => {
-        console.log(this.toast.timer);
         this.toast.timer -= 15;
 
         if (this.toast.timer <= 0) {

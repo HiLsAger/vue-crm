@@ -36,4 +36,14 @@ export default class AuthView extends Vue {
 }
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+.container{
+  display: flex;
+
+  .content{
+    display: flex;
+    justify-content: center;
+    
+  }
+}
+</style>

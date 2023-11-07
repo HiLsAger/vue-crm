@@ -54,7 +54,6 @@ export default class ProfileComponent extends Vue {
       title: "Уведомление",
       message: "Статус успешно обновлён",
     });
-    console.log(this.profile);
   }
 
   changeAvatar() {
@@ -83,6 +82,7 @@ button:hover {
       height: 10vh;
       max-height: 200px;
       max-width: 200px;
+      display: block;
     }
   }
   .avatar-container {
@@ -96,7 +96,15 @@ button:hover {
       height: 100%;
       background-color: rgba($color: #333, $alpha: 0.5);
       font-size: 1.5rem;
+      padding: 0;
+      border: none;
+      outline: none;
       color: var(--white);
+      opacity: 0;
+      transition: .3s;
+    }
+    .change-avatar:hover{
+      opacity: 1;
     }
   }
   .right-content {

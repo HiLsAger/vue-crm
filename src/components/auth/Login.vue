@@ -1,21 +1,6 @@
 <template>
   <div class="login-form">
-    <div>
-      <label for="login">Логин</label>
-      <input
-        id="login"
-        v-model="auth.login"
-        v-on:input="onChange(auth.login)"
-      />
-    </div>
-    <div>
-      <label for="password">Пароль</label>
-      <input
-        id="password"
-        v-model="auth.hash"
-        v-on:input="onChange(auth.hash)"
-      />
-    </div>
+    <FieldsComponent :labels="loginPropertyes" @input="updateFormData" />
     <button v-on:click="onSubmit()">Войти</button>
   </div>
 </template>
@@ -23,36 +8,40 @@
 <script lang="ts">
 import self_intefrace from "@/utility/interfaces/SelfInterface";
 import axios, { AxiosResponse } from "axios";
-import { Vue } from "vue-class-component";
+import { Options, Vue } from "vue-class-component";
+import {loginPropertyes, loginInputs} from "./login.labels"
 import { useStore } from "vuex";
+import FieldsComponent from "../Fields.vue";
+import router from '../../router/index';
 
-interface login {
-  login: string;
-  hash: string;
-}
+@Options({
+  components: {
+    FieldsComponent
+  }
+})
 export default class LoginComponent extends Vue {
   store = useStore();
+  loginPropertyes = loginPropertyes;
 
-  auth: login = {
+  login: loginInputs = {
     login: "",
     hash: "",
   };
-
-  onChange(value: string) {
-    console.log(value);
+  updateFormData(data: Record<string, string>) {
+    this.login = { ...this.login, ...data };
   }
 
   onSubmit() {
     axios
-      .post("http://localhost:3000/auth/login", this.auth)
+      .post("http://localhost:3000/auth/login", this.login)
       .then((response: AxiosResponse<self_intefrace>) => {
         console.log(response);
         this.store.dispatch("setSelf", response.data);
+        router.push('/')
       })
       .catch((error) => {
         console.log(error);
       });
-    console.log(this.auth);
   }
 }
 </script>

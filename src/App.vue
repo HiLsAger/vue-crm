@@ -1,12 +1,9 @@
 <template>
-  <div class="container" v-if="self">
-    <SidebarComponent />
+  <div class="container">
+    <SidebarComponent v-if="self" />
     <div id="content">
       <router-view />
     </div>
-  </div>
-  <div class="container" v-else>
-    <AuthView />
   </div>
   <Toaster />
 </template>
@@ -16,14 +13,12 @@ import { Options, Vue } from "vue-class-component";
 import SidebarComponent from "./components/Sidebar.vue";
 import Toaster from "./components/Toaster.vue";
 import self_intefrace from "./utility/interfaces/SelfInterface";
-import AuthView from "./views/auth/AuthView.vue";
 import { useStore } from "vuex";
 
 @Options({
   components: {
     SidebarComponent,
-    Toaster,
-    AuthView,
+    Toaster
   },
 })
 export default class App extends Vue {

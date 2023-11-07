@@ -1,5 +1,6 @@
 import { createStore } from "vuex";
 import self_intefrace from "@/utility/interfaces/SelfInterface";
+import router from "../router/index";
 
 export interface toastsInterface {
   type: string;
