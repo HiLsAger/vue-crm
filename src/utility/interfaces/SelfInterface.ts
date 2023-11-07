@@ -5,7 +5,7 @@ export default interface self_intefrace {
   user: User;
 }
 
-interface User {
+export interface User {
   id: number;
   login: string;
   name: string;

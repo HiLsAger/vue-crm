@@ -1,11 +1,14 @@
 <template>
   <div class="profile-header">
-    <div class="left-content">
+    <div class="left-content avatar-container">
       <img class="avatar" src="/avatar.png" />
+      <button class="change-avatar" v-on:click="changeAvatar">
+        <i class="bi bi-pencil-fill"></i>
+      </button>
     </div>
     <div class="right-content">
       <div class="profile-information">
-        <h2 class="prfile-name">Игорь</h2>
+        <h2 class="prfile-name">{{ profile.name }}</h2>
         <span
           v-if="!isChangeProfileStatus"
           class="profile-status"
@@ -28,6 +31,7 @@
 </template>
 
 <script lang="ts">
+import { User } from "@/utility/interfaces/SelfInterface";
 import { Vue } from "vue-class-component";
 import { useStore } from "vuex";
 
@@ -36,6 +40,9 @@ export default class ProfileComponent extends Vue {
   profileStatus = "я не я когда я";
   isChangeProfileStatus = false;
 
+  get profile(): User {
+    return this.store.getters.profile;
+  }
   changeProfileStatus() {
     this.isChangeProfileStatus = !this.isChangeProfileStatus;
   }
@@ -47,6 +54,11 @@ export default class ProfileComponent extends Vue {
       title: "Уведомление",
       message: "Статус успешно обновлён",
     });
+    console.log(this.profile);
+  }
+
+  changeAvatar() {
+    console.log("hello world!");
   }
 }
 </script>
@@ -71,6 +83,20 @@ button:hover {
       height: 10vh;
       max-height: 200px;
       max-width: 200px;
+    }
+  }
+  .avatar-container {
+    position: relative;
+
+    .change-avatar {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba($color: #333, $alpha: 0.5);
+      font-size: 1.5rem;
+      color: var(--white);
     }
   }
   .right-content {

@@ -1,14 +1,12 @@
 <template>
-  <div class="container">
-    <div v-if="self">
-      <SidebarComponent />
-      <div id="content">
-        <router-view />
-      </div>
+  <div class="container" v-if="self">
+    <SidebarComponent />
+    <div id="content">
+      <router-view />
     </div>
-    <div v-else>
-      <LoginView />
-    </div>
+  </div>
+  <div class="container" v-else>
+    <AuthView />
   </div>
   <Toaster />
 </template>
@@ -17,22 +15,20 @@
 import { Options, Vue } from "vue-class-component";
 import SidebarComponent from "./components/Sidebar.vue";
 import Toaster from "./components/Toaster.vue";
-import self_intefrace from './utility/interfaces/SelfInterface'
-import LoginView from './views/auth/LoginView.vue';
-import RegisterView from './views/auth/RegisterView.vue';
+import self_intefrace from "./utility/interfaces/SelfInterface";
+import AuthView from "./views/auth/AuthView.vue";
 import { useStore } from "vuex";
 
 @Options({
   components: {
     SidebarComponent,
     Toaster,
-    LoginView,
-    RegisterView
+    AuthView,
   },
 })
 export default class App extends Vue {
   store = useStore();
-  get self():self_intefrace|null{
+  get self(): self_intefrace | null {
     return this.store.getters.self;
   }
 }

@@ -1,5 +1,5 @@
-import self_intefrace from "@/utility/interfaces/SelfInterface";
 import { createStore } from "vuex";
+import self_intefrace from "@/utility/interfaces/SelfInterface";
 
 export interface toastsInterface {
   type: string;
@@ -36,6 +36,11 @@ export default createStore({
     },
     setSelf(state, self: self_intefrace) {
       state.self = self;
+      localStorage.setItem("self", JSON.stringify(self));
+    },
+    clearSelf(state) {
+      state.self = null;
+      localStorage.removeItem("self");
     },
   },
   actions: {
@@ -54,9 +59,20 @@ export default createStore({
     setSelf({ commit }, self: self_intefrace) {
       commit("setSelf", self);
     },
+    clearSelf({ commit }) {
+      commit("clearSelf", self);
+    },
+    initializeStore({ commit }) {
+      const jsonSelf = localStorage.getItem("self");
+      if (jsonSelf !== null) {
+        const self = JSON.parse(jsonSelf);
+        commit("setSelf", self);
+      }
+    },
   },
   getters: {
     toasts: (state) => state.toasts,
     self: (state) => state.self,
+    profile: (state) => state.self?.user,
   },
 });

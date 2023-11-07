@@ -3,4 +3,6 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./vuex/store";
 
+store.dispatch("initializeStore");
+
 createApp(App).use(router).use(store).mount("#app");
