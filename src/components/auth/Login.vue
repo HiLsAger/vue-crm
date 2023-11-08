@@ -1,7 +1,8 @@
 <template>
   <div class="login-form">
+    <h2>Войти в аккаунт</h2>
     <FieldsComponent :labels="loginPropertyes" @input="updateFormData" />
-    <button v-on:click="onSubmit()">Войти</button>
+    <button v-on:click="onSubmit()" class="auth-btn">Войти</button>
   </div>
 </template>
 
@@ -9,15 +10,15 @@
 import self_intefrace from "@/utility/interfaces/SelfInterface";
 import axios, { AxiosResponse } from "axios";
 import { Options, Vue } from "vue-class-component";
-import {loginPropertyes, loginInputs} from "./login.labels"
+import { loginPropertyes, loginInputs } from "./login.labels";
 import { useStore } from "vuex";
 import FieldsComponent from "../Fields.vue";
-import router from '../../router/index';
+import router from "../../router/index";
 
 @Options({
   components: {
-    FieldsComponent
-  }
+    FieldsComponent,
+  },
 })
 export default class LoginComponent extends Vue {
   store = useStore();
@@ -37,7 +38,7 @@ export default class LoginComponent extends Vue {
       .then((response: AxiosResponse<self_intefrace>) => {
         console.log(response);
         this.store.dispatch("setSelf", response.data);
-        router.push('/')
+        router.push("/");
       })
       .catch((error) => {
         console.log(error);

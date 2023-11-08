@@ -6,9 +6,9 @@
         <i class="bi bi-pencil-fill"></i>
       </button>
     </div>
-    <div class="right-content">
+    <div class="right-content profile-content">
       <div class="profile-information">
-        <h2 class="prfile-name">{{ profile.name }}</h2>
+        <h2 class="prfile-name">{{ profile.name ? profile.name : "" }}</h2>
         <span
           v-if="!isChangeProfileStatus"
           class="profile-status"
@@ -26,6 +26,7 @@
           </button>
         </span>
       </div>
+      <button class="exit" v-on:click="onExit">Выйти</button>
     </div>
   </div>
 </template>
@@ -59,6 +60,9 @@ export default class ProfileComponent extends Vue {
   changeAvatar() {
     console.log("hello world!");
   }
+  onExit() {
+    this.store.dispatch("clearSelf");
+  }
 }
 </script>
 
@@ -76,6 +80,7 @@ button:hover {
 }
 .profile-header {
   display: flex;
+  background-color: var(--white);
   .left-content {
     .avatar {
       width: 10vh;
@@ -84,6 +89,9 @@ button:hover {
       max-width: 200px;
       display: block;
     }
+  }
+  .profile-content {
+    padding: 0.5rem 0;
   }
   .avatar-container {
     position: relative;
@@ -101,9 +109,9 @@ button:hover {
       outline: none;
       color: var(--white);
       opacity: 0;
-      transition: .3s;
+      transition: 0.3s;
     }
-    .change-avatar:hover{
+    .change-avatar:hover {
       opacity: 1;
     }
   }
@@ -122,6 +130,23 @@ button:hover {
       .profile-status:hover {
         cursor: pointer;
       }
+    }
+  }
+  .profile-content {
+    position: relative;
+    .exit {
+      position: absolute;
+      right: 0;
+      top: 0;
+      background-color: var(--black);
+      color: var(--white);
+      outline: none;
+      border: 1px solid var(--black);
+    }
+    .exit:hover {
+      border: 1px solid var(--white);
+      background-color: var(--white);
+      color: var(--black);
     }
   }
 }

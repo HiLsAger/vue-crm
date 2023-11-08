@@ -2,9 +2,9 @@
   <div class="form">
     <LoginComponent v-if="isLogin" />
     <RegisterComponent v-else />
-    <button v-on:click="changeAuth">
+    <a v-on:click="changeAuth" class="switch-form">
       {{ isLogin ? "Зарегистрироваться" : "Уже зарегистрирован" }}
-    </button>
+    </a>
   </div>
 </template>
 
@@ -37,13 +37,62 @@ export default class AuthView extends Vue {
 </script>
 
 <style lang="scss">
-.container{
+.auth-container,
+.container {
+  background: linear-gradient(300deg, var(--red-apple), var(--purpul));
+  background-size: 200% 200%;
+  animation: slideGradient 10s infinite alternate;
+}
+.auth-container {
   display: flex;
+  justify-content: center;
+  align-items: center;
 
-  .content{
+  #content {
     display: flex;
     justify-content: center;
-    
+
+    .form {
+      width: 30vw;
+      max-width: 300px;
+      background-color: var(--white);
+      padding: 3rem 2rem;
+    }
+
+    .auth-btn {
+      font-size: 1rem;
+      border: none;
+      padding: 0.4rem 1rem;
+      text-decoration: none;
+      text-align: center;
+      cursor: pointer;
+      background-color: var(--green);
+      color: var(--white);
+      width: 100%;
+    }
+    .auth-btn:hover {
+      background-color: var(--green-hover);
+    }
+    .switch-form {
+      border: none;
+      display: block;
+      margin-top: 1rem;
+    }
+    .switch-form:hover {
+      background-color: transparent;
+      color: var(--black);
+      text-decoration: underline;
+      cursor: pointer;
+    }
+  }
+}
+@keyframes slideGradient {
+  from {
+    background-position: 0% 0%;
+  }
+
+  to {
+    background-position: 100% 0%;
   }
 }
 </style>

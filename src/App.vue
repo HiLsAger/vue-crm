@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div :class="['container', !self ? 'auth-container' : '']">
     <SidebarComponent v-if="self" />
     <div id="content">
       <router-view />
@@ -18,7 +18,7 @@ import { useStore } from "vuex";
 @Options({
   components: {
     SidebarComponent,
-    Toaster
+    Toaster,
   },
 })
 export default class App extends Vue {
@@ -32,7 +32,17 @@ export default class App extends Vue {
 :root {
   --black: #1f1f1f;
   --white: #f1f1f1;
+  --green: #28a745;
+  --green-hover: #36c056;
+  --red: #dc3545;
+  --red-apple: #e66465;
+  --purpul: #9198e5;
+  --yellow: #ffc107;
   --full-black: #000000;
+  --full-white: #ffffff;
+}
+* {
+  transition: 0.3s;
 }
 body {
   margin: 0;
@@ -47,19 +57,19 @@ body {
 .container {
   width: 100%;
   min-height: 100vh;
-  background-color: #f1f1f1;
+  background-color: var(--white);
   display: flex;
   #content {
     flex: 1;
   }
 }
 .text-danger {
-  color: #dc3545;
+  color: var(--red);
 }
 .text-success {
-  color: #28a745;
+  color: var(--green);
 }
 .text-warning {
-  color: #ffc107;
+  color: var(--yellow);
 }
 </style>
